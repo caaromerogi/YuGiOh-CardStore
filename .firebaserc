@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "yugioh-cardstore": {
+      "hosting": {
+        "yugiohcardstore": [
+          "yugioh-cardstore"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "yugioh-cardstore"
+  }
+}

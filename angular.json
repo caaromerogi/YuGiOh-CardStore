@@ -97,8 +97,21 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "yugiohcardstore:build:production",
+            "firebaseProject": "yugioh-cardstore",
+            "firebaseHostingSite": "yugioh-cardstore"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
