@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+
+.my-custom-class .tooltip-inner {
+  border-style: solid;
+  border-width: 1px;
+  background-color: rgb(37, 37, 37);
+  border-color: rgb(63, 63, 63);
+  max-width: fit-content;
+  border-radius: 2px;
+}
+.my-custom-class.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: rgb(63, 63, 63);;
+
+
+}
+.my-custom-class.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: rgb(63, 63, 63);;
+
+}
+.my-custom-class.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: rgb(63, 63, 63);;
+
+}
+
+.tooltip-inner {
+
+}
+
+$font-family-base:("Times New Roman")

@@ -5,6 +5,7 @@ import { PastOwner } from "./CardInfo/PastOwner"
 export type Card =
 {
   id:string
+  name:string,
   inInventory:number,
   type:string,
   frameType:string,

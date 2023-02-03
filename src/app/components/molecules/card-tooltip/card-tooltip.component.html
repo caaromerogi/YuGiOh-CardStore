@@ -1,0 +1,27 @@
+<ng-template style="position:fixed;" #tipContent>
+  <div class="d-flex">
+    <app-logo-img inputStyle="width: 230px;" [imgSrc]="imgSrc"></app-logo-img>
+    <div>
+      <div style="width: 500px;">
+        <div>
+          <app-h6-title inputClass ="h6 text-start ms-3" [text]="cardTitle"></app-h6-title>
+        </div>
+        <div class="ms-3">
+          <app-h6-title inputClass="h6 text-start" [text]="cardType"></app-h6-title>
+        </div>
+        <div class="ms-3">
+          <app-paragraph inputClass="text-start"
+          [text]="description"
+          >
+          </app-paragraph>
+        </div>
+        <div *ngIf="atk===''?false:true" class="d-flex ms-3">
+            <app-paragraph inputClass="text-start fw-bold" text="ATK/"></app-paragraph>{{atk}}
+            <app-paragraph inputClass="text-start ms-3 fw-bold" text="DEF/"></app-paragraph>{{dfs}}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<app-logo-img  inputStyle="width: 100px;" [imgSrc]="imgSrc" data-placement="bottom" tooltipClass="my-custom-class" [ngbTooltip]="tipContent"></app-logo-img>
+

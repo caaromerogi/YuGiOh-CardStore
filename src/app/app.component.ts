@@ -8,9 +8,10 @@ import { HttpRequestService } from './services/http/http-request.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  constructor(private httpClient:HttpRequestService){}
+
+  constructor(){}
   ngOnInit(): void {
-      this.httpClient.addCards();
+
   }
   title = 'yugiohcardstore';
 }

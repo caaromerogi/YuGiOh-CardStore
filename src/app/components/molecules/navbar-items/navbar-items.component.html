@@ -1,0 +1,14 @@
+<div class="d-flex align-items-center">
+  <app-a-item link="home" text="Home"></app-a-item>
+  <app-a-item link="cards" text="Cards"></app-a-item>
+  <app-a-item *ngIf="true" link="login" text="Login"></app-a-item>
+  <div *ngIf="true" class="dropdown" >
+    <app-rounded-img class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" imgSrc = "https://www.w3schools.com/howto/img_avatar.png"></app-rounded-img>
+    <ul style="background-color: rgb(41, 41, 41);" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <label style="color: rgb(110, 204, 110);" class="dropdown-item label" > Balance: $5000 USD</label>
+      <app-a-item  class="dropdown-item" link="" text="Deck"></app-a-item>
+      <app-a-item class="dropdown-item" link="" text="Fund your account"></app-a-item>
+      <app-a-item class="dropdown-item" link="" text="Logout"></app-a-item>
+    </ul>
+  </div>
+</div>

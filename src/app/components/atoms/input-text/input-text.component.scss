@@ -1,0 +1,13 @@
+input{
+  background-color: rgb(29, 29, 29);
+  border-radius: 3px;
+  border-style: solid;
+  border-color: rgb(56, 56, 56);
+  border-width: 1px;
+  width: 300px;
+  height: 30px;
+}
+
+input:active{
+  border: none;
+}
