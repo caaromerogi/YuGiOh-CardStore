@@ -20,7 +20,11 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirebaseApp(() => {
+      let app = initializeApp(environment.firebase);
+      getAuth(app)
+      return app
+    }),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     OrganismsModule

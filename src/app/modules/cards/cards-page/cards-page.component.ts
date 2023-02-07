@@ -9,9 +9,10 @@ import { FirestoreService } from 'src/app/services/firestore/firestore.service';
 })
 export class CardsPageComponent implements OnInit{
   constructor(private firestoreService:FirestoreService){}
-  cards?:Card[];
+  cards:Card[] = [];
   page:number = 1;
-  pageSize:number = 45;
+  pageSize:number = 52;
+
   ngOnInit(): void {
 
     // this.firestoreService.getCards().subscribe(

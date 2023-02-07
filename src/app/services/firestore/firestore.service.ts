@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {addDoc, collection, Firestore, setDoc, doc} from '@angular/fire/firestore'
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Card } from 'src/app/models/Card';
-import { map, Observable, of } from 'rxjs';
+import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { Customer } from 'src/app/models/Customer';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { Customer } from 'src/app/models/Customer';
 })
 export class FirestoreService {
   customerData?:Customer
+  customerObservable?:BehaviorSubject<Customer|null> = new BehaviorSubject<Customer|null>(null)
   constructor(private firestore:Firestore, private angularFirestore:AngularFirestore) {
 
   }
@@ -45,10 +46,9 @@ export class FirestoreService {
     .ref
     .get()
     .then((doc) => {
-      console.log(doc.data())
       this.customerData = doc.data()
-      console.log(this.customerData)
     })
+
     return this.customerData
   }
 

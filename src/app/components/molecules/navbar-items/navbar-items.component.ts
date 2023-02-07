@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { User } from 'firebase/auth';
+import { getAuth, User } from 'firebase/auth';
 import { FirebaseUser } from 'src/app/models/FirebaseUser';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FirestoreService } from 'src/app/services/firestore/firestore.service';
@@ -10,17 +10,27 @@ import { FirestoreService } from 'src/app/services/firestore/firestore.service';
   styleUrls: ['./navbar-items.component.scss']
 })
 export class NavbarItemsComponent implements OnInit{
-  constructor(private authService:AuthService, private firestoreService:FirestoreService){
+  constructor(
+    private authService:AuthService,
+    private firestoreService:FirestoreService){
   }
 
-  currentUser!:FirebaseUser;
+  currentUser?:FirebaseUser|null
+
   ngOnInit(): void {
-    this.authService.currentUser?.asObservable().subscribe(data=> {
-      this.currentUser = data
-
-    })
-
+    this.getCurrentUserInf()
   }
 
+  signOut():void{
+    this.authService.signOut()
+  }
+
+  getCurrentUserInf(){
+    getAuth().onAuthStateChanged((user) =>{
+      let email = user?.email ?? null;
+      let id = user?.uid!;
+      this.currentUser = {id,email}
+    })
+  }
 
 }

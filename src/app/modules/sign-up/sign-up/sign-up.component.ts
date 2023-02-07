@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { user } from '@angular/fire/auth';
 import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FirebaseError } from 'firebase/app';
 import { Customer } from 'src/app/models/Customer';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FirestoreService } from 'src/app/services/firestore/firestore.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -17,7 +21,8 @@ export class SignUpComponent {
   registerForm:FormGroup;
   constructor(
     private firestoreService:FirestoreService,
-    private authService:AuthService
+    private authService:AuthService,
+    private router:Router
     ){
     this.registerForm = new FormGroup({
       email: new FormControl(null, [Validators.email, Validators.required]),
@@ -27,10 +32,9 @@ export class SignUpComponent {
     );
   }
 
-  catchClickEventEmail():void{
+  public catchClickEventEmail():void{
     this.authService.SingUp(this.email, this.password).then(
       data=> {
-
         let customer:Customer ={
           id: data.user.uid,
           deck : [],
@@ -38,42 +42,73 @@ export class SignUpComponent {
           balance : 0,
           imgPath : 'https://uploads3.yugioh.com/character/3/detail/detail/yamiyugi-l.png?1371744397'
         }
-        this.firestoreService.setUser(customer).then(data => console.log(data))
+        this.firestoreService.setUser(customer).then(data => {
+          this.swalFireUserCreated();
+          this.router.navigateByUrl('/cards')
+        })
       }
     )
+    .catch(error => {
+      if(error instanceof FirebaseError){
+        this.swalFireUserExists();
+      }
+    })
   }
 
-  catchClickEventGoogle():void{
+  public catchClickEventGoogle():void{
     this.authService.SingInWithGoogle().then(fireData => {
 
-      let userDoc:Customer |undefined;
       this.firestoreService.getUser(fireData.user.uid).then(data => {
         if(!data){
-          console.log('esto debe pasar')
-        let customer:Customer ={
-          id: fireData.user.uid,
-          deck : [],
-          email : fireData.user.email!,
-          balance : 0,
-          imgPath : ''
-        }
-        this.firestoreService.setUser(customer)
-        }
-        else{
-          console.log(data)
+          let customer:Customer ={
+            id: fireData.user.uid,
+            deck : [],
+            email : fireData.user.email!,
+            balance : 0,
+            imgPath : fireData.user.photoURL!
+          }
+          this.firestoreService.setUser(customer).then(data => {
+          })
         }
       })
       //TODO: Crear un behaviour subject para emitir la info del customer y mostrarla en el navbar
+      this.firestoreService.customerObservable?.next(null)
       this.authService.currentUser?.next({
         email:fireData.user.email!,
         id:fireData.user.uid!
       })
+      this.swalFireUserCreated();
+      this.router.navigateByUrl('/cards')
     })
   }
-  catchStringEmail(event:string){
+
+
+  public catchStringEmail(event:string):void{
     this.email = event
   }
-  catchStringPassword(event:string){
+  public catchStringPassword(event:string):void{
     this.password = event
+  }
+  private swalFireUserCreated():void{
+    Swal.fire({
+      title:"<h5 style = 'color:white'>User created</h5>",
+      icon: 'success',
+      timer:2000,
+      showCancelButton: false,
+      showConfirmButton: false,
+      background: '#222222'
+    })
+  }
+
+  private swalFireUserExists():void{
+    Swal.fire({
+      title: "<h5 style = 'color:white'>Error</h5>",
+      html: "<p style = 'color:rgb(133, 132, 132)'>Account already in use</p>",
+      icon: 'error',
+      timer:2000,
+      showCancelButton: false,
+      showConfirmButton: false,
+      background: '#222222',
+    })
   }
 }

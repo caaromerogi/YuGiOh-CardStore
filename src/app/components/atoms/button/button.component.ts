@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() text?:string ='Sign up';
+  @Input() isInvalid?:boolean;
 }

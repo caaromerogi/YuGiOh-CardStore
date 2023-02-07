@@ -7,7 +7,7 @@
     [inputFormControl]="inputFormControlEmail"
     [inputFormGroup]="formGroupInput"
     [isFieldInvalid] = "!formGroupInput.controls['email'].valid && formGroupInput.controls['email'].touched"
-    inputText="Please, introduce a valid email address"
+    inputText="Please, enter a valid email address"
     (inputString)="catchStringEmail($event)"
     ></app-input-control-form>
 
@@ -32,6 +32,7 @@
 
     <app-button
     (click) = "emitClick()"
+    [isInvalid] = "!formGroupInput.valid"
     class="mt-2"
     [text]="text">
     </app-button>

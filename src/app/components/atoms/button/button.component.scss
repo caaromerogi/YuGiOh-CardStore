@@ -9,6 +9,13 @@ button{
   font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.disabled{
+  color: rgb(145, 145, 145);
+}
+.disabled:hover{
+  opacity: 1;
+}
+
 button:hover{
   opacity: 0.9;
 

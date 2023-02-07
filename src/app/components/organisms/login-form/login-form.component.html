@@ -21,8 +21,11 @@
     (inputString)="catchStringPassword($event)"
     ></app-input-control-form>
     <app-button class="mt-2"
+    [isInvalid] = "!formGroupInput.valid"
+    (click) = "emitClick()"
     text="Sign in"></app-button>
     <app-button class="mt-3"
+    (click) = "emitClickGoogle()"
     text="Sign in with Google"></app-button>
 
 
