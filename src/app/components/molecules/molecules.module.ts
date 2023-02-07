@@ -5,6 +5,7 @@ import { AtomsModule } from '../atoms/atoms.module';
 import { CardTooltipComponent } from './card-tooltip/card-tooltip.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InputControlFormComponent } from './input-control-form/input-control-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,7 +17,8 @@ import { InputControlFormComponent } from './input-control-form/input-control-fo
   imports: [
     CommonModule,
     AtomsModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   exports:[NavbarItemsComponent, CardTooltipComponent,InputControlFormComponent],
   bootstrap:[CardTooltipComponent]

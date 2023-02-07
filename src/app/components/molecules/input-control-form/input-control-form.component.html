@@ -3,5 +3,5 @@ El input debe llevar el FormControl correspondiente a él (Vendría por input en
 Ese input debe hacer un style para validar si es o no correcto y cambiar la clase (bordes rojos)
 El span debe llevar también el form control para saber si el correspondiente es valido o no y cambiar los bordes -->
 <app-label inputClassLabel="text-white" [text]="inputLabelText"></app-label><br>
-<app-input-text ></app-input-text><br>
-<app-span text =""></app-span><br>
+<app-input-text [isFieldInvalid] = "isFieldInvalid"  (inputString)="catchString($event)" [inputFormGroup]="inputFormGroup" [inputFormControl] = "inputFormControl" [inputType]="inputType"></app-input-text><br>
+<app-span *ngIf="isFieldInvalid" [inputFormGroup]="inputFormGroup" [text] ="inputText"></app-span><br>

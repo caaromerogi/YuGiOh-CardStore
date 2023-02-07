@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {addDoc, collection, Firestore, setDoc, doc} from '@angular/fire/firestore'
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Card } from 'src/app/models/Card';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
+import { Customer } from 'src/app/models/Customer';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
-
+  customerData?:Customer
   constructor(private firestore:Firestore, private angularFirestore:AngularFirestore) {
 
   }
@@ -30,4 +31,25 @@ export class FirestoreService {
       )
     )
   }
+
+  async setUser(user:Customer){
+    let userRef = collection(this.firestore, 'Customers');
+    let userDoc = doc(userRef, String(user.id));
+    await setDoc(userDoc, user)
+  }
+
+  async getUser(userId:string):Promise<Customer | undefined>{
+    await this.angularFirestore.
+    collection<Customer>('Customers').
+    doc(userId)
+    .ref
+    .get()
+    .then((doc) => {
+      console.log(doc.data())
+      this.customerData = doc.data()
+      console.log(this.customerData)
+    })
+    return this.customerData
+  }
+
 }

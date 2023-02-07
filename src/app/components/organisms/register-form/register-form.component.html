@@ -1,27 +1,49 @@
-<div class="d-flex pt-5 align-items-center justify-content-center" style="height: 100%;" >
+<form [formGroup]="formGroupInput!" class="d-flex pt-5 align-items-center justify-content-center" style="height: 100%;" >
   <div style="margin-right: 0; margin-left: 0;" class="d-flex flex-column align-items-center container mt-5">
     <app-h6-title text="Sign Up" inputClass="text-white"></app-h6-title>
     <app-input-control-form
     inputLabelText = "Email"
-
+    inputType="text"
+    [inputFormControl]="inputFormControlEmail"
+    [inputFormGroup]="formGroupInput"
+    [isFieldInvalid] = "!formGroupInput.controls['email'].valid && formGroupInput.controls['email'].touched"
+    inputText="Please, introduce a valid email address"
+    (inputString)="catchStringEmail($event)"
     ></app-input-control-form>
+
     <app-input-control-form
     inputLabelText = "Password"
-
+    inputType="password"
+    [inputFormControl]="inputFormControlPassword"
+    [inputFormGroup]="formGroupInput"
+    [isFieldInvalid]="!formGroupInput.controls['password'].valid && formGroupInput.controls['password'].touched"
+    inputText="Password must contain at least 8 characters"
+    (inputString)="catchStringPassword($event)"
     ></app-input-control-form>
+
     <app-input-control-form
     inputLabelText = "Confirm Password"
-
+    inputType="password"
+    [inputFormControl]="inputFormControlRepeatPassword"
+    [inputFormGroup]="formGroupInput"
+    [isFieldInvalid]="formGroupInput.getError('notmatched') && formGroupInput.controls['password'].touched"
+    inputText="Passwords must match"
     ></app-input-control-form>
 
-    <app-button class="mt-2"
-    [text]="text"></app-button>
+    <app-button
+    (click) = "emitClick()"
+    class="mt-2"
+    [text]="text">
+    </app-button>
+
     <app-button class="mt-3"
-    text="Sign up with Google"></app-button>
-    <p class="mt-3 text-end" style="font-size: 13px; color: white;">You have an account? <a href=""> Log-in</a></p>
+    text="Sign up with Google"
+    (click) = "emitClickGoogle()"
+    ></app-button>
+    <p class="mt-3 text-end" style="font-size: 13px; color: white;">Already have an account? <a routerLink="/login"> Sign-in</a></p>
   </div>
   <div class="img-container mt-5">
     <img src="../../../../assets/Images/darkmagician.jpg" alt="">
   </div>
 
-</div>
+</form>

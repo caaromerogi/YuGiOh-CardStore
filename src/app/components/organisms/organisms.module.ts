@@ -4,19 +4,26 @@ import { AtomsModule } from '../atoms/atoms.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MoleculesModule } from '../molecules/molecules.module';
 import { RegisterFormComponent } from './register-form/register-form.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    RegisterFormComponent],
+    RegisterFormComponent,
+    LoginFormComponent],
   imports: [
     CommonModule,
     AtomsModule,
-    MoleculesModule
+    MoleculesModule,
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports:[NavbarComponent,
-  RegisterFormComponent]
+  RegisterFormComponent,
+  LoginFormComponent]
 })
 export class OrganismsModule { }

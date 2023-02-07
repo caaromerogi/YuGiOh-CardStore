@@ -1,3 +1,12 @@
 <app-register-form
+[formGroupInput] = 'registerForm'
+[inputFormControlEmail] = "registerForm.controls['email']"
+[inputFormControlPassword] = "registerForm.controls['password']"
+[inputFormControlRepeatPassword] = "registerForm.controls['confirmPassword']"
+(emailEmitter) = "catchStringEmail($event)"
+(passwordEmitter) = "catchStringPassword($event)"
+(signUpWithEmail) = "catchClickEventEmail()"
+(signUpWithGoogle)="catchClickEventGoogle()"
+>
 
-></app-register-form>
+</app-register-form>

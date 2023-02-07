@@ -1,4 +1,11 @@
-<app-register-form></app-register-form>
+<app-login-form
+[formGroupInput] = 'loginForm'
+[inputFormControlEmail] = "loginForm.controls['email']"
+[inputFormControlPassword] = "loginForm.controls['password']"
+(emailEmitter) = "catchStringEmail($event)"
+(passwordEmitter) = "catchStringPassword($event)">
+
+</app-login-form>
 <!-- <input [(ngModel)]="email" type="text">
 <input [(ngModel)]="password" type="text">
 <button (click)="send()">submit</button> -->

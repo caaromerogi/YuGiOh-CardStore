@@ -1,1 +1,3 @@
-<input [placeholder]="inputPlaceholder" type="text" name="" id="" >
+<div [formGroup] = "inputFormGroup" style="padding: 0; margin: 0; height: 10px;">
+  <input (input)="emitString()" [(ngModel)]="stringToEmit" [ngClass]="{'red': isFieldInvalid === true, 'input': !isFieldInvalid===false}" [formControlName] = "formControlName" [placeholder]="inputPlaceholder" [type]="inputType" name="" id="" >
+</div>
