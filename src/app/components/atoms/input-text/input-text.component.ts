@@ -17,6 +17,9 @@ export class InputTextComponent implements OnInit {
   @Input() inputFormControl!:AbstractControl
   @Input() inputFormGroup!:FormGroup;
   @Input() isFieldInvalid?:boolean;
+  @Input() inputMin?:number;
+  @Input() inputMax?:number;
+
   formControlName!:string|null;
   stringToEmit:string = '';
 

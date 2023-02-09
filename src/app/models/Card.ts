@@ -1,3 +1,4 @@
+import { FieldValue } from "firebase/firestore"
 import { CardImage } from "./CardInfo/CardImage"
 import { CardPrice } from "./CardInfo/CardPrice"
 import { PastOwner } from "./CardInfo/PastOwner"
@@ -6,7 +7,7 @@ export type Card =
 {
   id:string
   name:string,
-  inInventory:number,
+  inInventory:number |FieldValue,
   type:string,
   frameType:string,
   desc:string

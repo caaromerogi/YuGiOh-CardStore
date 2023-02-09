@@ -19,9 +19,21 @@
             <app-paragraph inputClass="text-start fw-bold" text="ATK/"></app-paragraph>{{atk}}
             <app-paragraph inputClass="text-start ms-3 fw-bold" text="DEF/"></app-paragraph>{{dfs}}
         </div>
+        <div *ngIf="showAvailableUnits" class="ms-3 d-flex">
+          <app-paragraph inputClass="text-start fw-bold" text="Available units:"></app-paragraph>
+          <app-paragraph inputClass="text-start ms-1 " [text]="inInventory"></app-paragraph>
+        </div>
+        <div *ngIf="!showAvailableUnits" class="ms-3 d-flex">
+          <app-paragraph inputClass="text-start fw-bold" text="In Inventory:"></app-paragraph>
+          <app-paragraph inputClass="text-start ms-1 " [text]="inInventory"></app-paragraph>
+        </div>
+        <div *ngIf="showPrice" class="ms-3 d-flex">
+          <app-paragraph inputClass="text-start fw-bold" text="Price: "></app-paragraph>
+          <app-paragraph inputClass="text-start ms-1 " [text]="price"></app-paragraph>
+        </div>
       </div>
     </div>
   </div>
 </ng-template>
-<app-logo-img  inputStyle="width: 100px;" [imgSrc]="imgSrc" data-placement="bottom" tooltipClass="my-custom-class" [ngbTooltip]="tipContent"></app-logo-img>
+<app-logo-img  inputStyle="width: 100px; height:145.83px;" [imgSrc]="imgSrc" data-placement="bottom" tooltipClass="my-custom-class" [ngbTooltip]="tipContent"></app-logo-img>
 

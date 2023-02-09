@@ -10,9 +10,10 @@ import { ParagraphComponent } from './paragraph/paragraph.component';
 import { RouterModule } from '@angular/router';
 import { InputTextComponent } from './input-text/input-text.component';
 import { LabelComponent } from './label/label.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SpanComponent } from './span/span.component';
 import { ButtonComponent } from './button/button.component';
+import { InputNoValidationComponent } from './input-no-validation/input-no-validation.component';
 
 
 
@@ -29,12 +30,15 @@ import { ButtonComponent } from './button/button.component';
     LabelComponent,
     SpanComponent,
     ButtonComponent,
+    InputNoValidationComponent,
+
 
   ],
   imports: [
     CommonModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [AItemComponent,
     RoundedImgComponent,
@@ -46,6 +50,7 @@ import { ButtonComponent } from './button/button.component';
     InputTextComponent,
     LabelComponent,
     SpanComponent,
-    ButtonComponent]
+    ButtonComponent,
+    InputNoValidationComponent]
 })
 export class AtomsModule { }

@@ -1,13 +1,12 @@
 <div class="d-flex align-items-center">
-  <app-a-item link="home" text="Home"></app-a-item>
   <app-a-item link="cards" text="Cards"></app-a-item>
   <app-a-item *ngIf="this.currentUser?.email === null" link="login" text="Login"></app-a-item>
   <div *ngIf="this.currentUser?.email !== null" class="dropdown" >
-    <app-rounded-img style="margin-left: 21px;"  class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" imgSrc = "https://pbs.twimg.com/profile_images/1446682936149938177/mAIpK-V0_400x400.jpg"></app-rounded-img>
-    <ul style="background-color: rgb(41, 41, 41);" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <label style="color: rgb(110, 204, 110);" class="dropdown-item label" > Balance: $5000 USD</label>
-      <app-a-item class="dropdown-item" link="" text="Deck"></app-a-item>
-      <app-a-item class="dropdown-item" link="" text="Fund your account"></app-a-item>
+    <app-rounded-img style="margin-left: 21px;"  class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" [imgSrc] = "currentCustomer?.imgPath ? currentCustomer?.imgPath:'https://uploads3.yugioh.com/character/3/detail/detail/yamiyugi-l.png?1371744397'"></app-rounded-img>
+    <ul  class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+      <label style="color: rgb(110, 204, 110);" class="dropdown-item label" > Balance: ${{Number(currentCustomer?.balance) | number:'1.2-2' }} USD</label>
+      <app-a-item class="dropdown-item" link="deck" text="Deck"></app-a-item>
+      <app-a-item class="dropdown-item" link="fund" text="Fund your account"></app-a-item>
       <app-a-item (click) = "signOut()" class="dropdown-item" link="" text="Logout"></app-a-item>
     </ul>
   </div>

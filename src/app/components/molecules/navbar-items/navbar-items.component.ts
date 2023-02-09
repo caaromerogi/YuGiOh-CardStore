@@ -1,5 +1,6 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { getAuth, User } from 'firebase/auth';
+import { Customer } from 'src/app/models/Customer';
 import { FirebaseUser } from 'src/app/models/FirebaseUser';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FirestoreService } from 'src/app/services/firestore/firestore.service';
@@ -15,22 +16,20 @@ export class NavbarItemsComponent implements OnInit{
     private firestoreService:FirestoreService){
   }
 
-  currentUser?:FirebaseUser|null
+  @Input() currentUser?:FirebaseUser|null
+  @Input() currentCustomer?:Customer;
+
+  @Output() signOutEmitter:EventEmitter<void> = new EventEmitter<void>();
 
   ngOnInit(): void {
-    this.getCurrentUserInf()
   }
 
   signOut():void{
-    this.authService.signOut()
+    this.signOutEmitter.emit()
   }
 
-  getCurrentUserInf(){
-    getAuth().onAuthStateChanged((user) =>{
-      let email = user?.email ?? null;
-      let id = user?.uid!;
-      this.currentUser = {id,email}
-    })
-  }
 
+  Number(obj:any):number{
+    return Number(obj)
+  }
 }

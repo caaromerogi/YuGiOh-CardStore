@@ -1,0 +1,25 @@
+<div class="d-flex flex-column align-items-center form-container" style="width: 500px; margin-top: 60px;">
+  <div class="pt-3" [formGroup] = "inputFormGroup!">
+    <app-h6-title inputClass="text-white p-4" text="Fund your account"> </app-h6-title>
+  </div>
+  <div class="d-flex flex-column" style="height: 145px;">
+    <app-input-text
+    (inputString)="catchInput($event)"
+    style="height: 35px;"
+    inputType="number"
+    [inputFormGroup] = "inputFormGroup!"
+    [inputFormControl]= "inputFormGroup!.controls['amount']"
+    [isFieldInvalid]="!inputFormGroup!.controls['amount'].valid && inputFormGroup!.controls['amount'].touched"
+    inputPlaceholder = "Insert the amount"
+    [inputMin]="min"
+    [inputMax]="max"></app-input-text>
+    <app-span *ngIf="inputFormGroup!.controls['amount'].hasError('min')"
+    text="The minimun amount is 1"
+    ></app-span>
+    <app-span  *ngIf="inputFormGroup!.controls['amount'].hasError('max')"
+    text="The maximun amount is 200"
+    ></app-span>
+    <app-button (click) = "fundAccount()" [isInvalid]="!inputFormGroup!.valid" text="Fund"></app-button>
+  </div>
+</div>
+

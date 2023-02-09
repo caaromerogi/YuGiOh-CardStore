@@ -1,11 +1,16 @@
-<!--  [ngStyle]="{background: 'url(../assets/Images/blackskybackground.jpg)'}" -->
+<!--  [ngStyle]="{background: 'url(../assets/Images/blackskybackground.jpg)'}"
+background-image: url(../assets/Images/blackskybackground.jpg);-->
 <app-navbar style="background-color: #2b0864;"></app-navbar>
 <div
 style=
 "height: 100%;
 min-height: 90.9vh;
-background-image: url(../assets/Images/blackskybackground.jpg);
+background-color: black;
 background-repeat: no-repeat;
 background-attachment: fixed;" >
-  <router-outlet  ></router-outlet>
+  <router-outlet></router-outlet>
+  <app-end-footer style="height: 12vh; background-color: black;"></app-end-footer>
 </div>
+
+
+

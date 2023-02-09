@@ -6,6 +6,7 @@ import { CardTooltipComponent } from './card-tooltip/card-tooltip.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InputControlFormComponent } from './input-control-form/input-control-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FundingBoxComponent } from './funding-box/funding-box.component';
 
 
 
@@ -13,14 +14,15 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
   NavbarItemsComponent,
   CardTooltipComponent,
-  InputControlFormComponent],
+  InputControlFormComponent,
+  FundingBoxComponent],
   imports: [
     CommonModule,
     AtomsModule,
     NgbModule,
     ReactiveFormsModule
   ],
-  exports:[NavbarItemsComponent, CardTooltipComponent,InputControlFormComponent],
+  exports:[NavbarItemsComponent, CardTooltipComponent,InputControlFormComponent,FundingBoxComponent],
   bootstrap:[CardTooltipComponent]
 })
 export class MoleculesModule { }

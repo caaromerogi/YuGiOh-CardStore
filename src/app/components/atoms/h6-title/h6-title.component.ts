@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./h6-title.component.scss']
 })
 export class H6TitleComponent {
-  @Input() text?  :string;
+  @Input() text?:string;
   @Input() inputClass?: string;
 }

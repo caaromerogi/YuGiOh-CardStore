@@ -17,13 +17,13 @@ import Swal from 'sweetalert2';
 export class SignUpComponent {
   email!:string;
   password!:string;
-
   registerForm:FormGroup;
   constructor(
     private firestoreService:FirestoreService,
     private authService:AuthService,
     private router:Router
-    ){
+    )
+    {
     this.registerForm = new FormGroup({
       email: new FormControl(null, [Validators.email, Validators.required]),
       password: new FormControl(null, [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/), Validators.required]),
@@ -57,8 +57,7 @@ export class SignUpComponent {
 
   public catchClickEventGoogle():void{
     this.authService.SingInWithGoogle().then(fireData => {
-
-      this.firestoreService.getUser(fireData.user.uid).then(data => {
+      this.firestoreService.getCustomer(fireData.user.uid).then(data => {
         if(!data){
           let customer:Customer ={
             id: fireData.user.uid,
@@ -71,6 +70,7 @@ export class SignUpComponent {
           })
         }
       })
+
       //TODO: Crear un behaviour subject para emitir la info del customer y mostrarla en el navbar
       this.firestoreService.customerObservable?.next(null)
       this.authService.currentUser?.next({

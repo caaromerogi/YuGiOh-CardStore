@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent {
-  @Input() text?:string ='Sign up';
+  @Input() text?:string ='';
   @Input() isInvalid?:boolean;
 }

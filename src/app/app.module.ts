@@ -27,6 +27,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
     }),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    
     OrganismsModule
   ],
   providers: [{ provide: FIREBASE_OPTIONS, useValue: environment.firebase}],

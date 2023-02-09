@@ -3,14 +3,20 @@ app-rounded-img{
 }
 
 .dropdown-item:hover{
-  background-color: rgb(110, 110, 110);
+  background-color: rgb(41, 41, 41);
 }
 
 .label:hover{
-  background-color:  rgb(41, 41, 41);
+  background-color:  rgb(20, 20, 20);
 }
-
 
 app-a-item{
   cursor: pointer;
 }
+
+.dropdown-menu{
+  background-color:rgb(20, 20, 20);
+}
+
+.dropdown-menu{min-width:210px;}
+.dropdown-menu .dropdown-item{white-space:normal;}

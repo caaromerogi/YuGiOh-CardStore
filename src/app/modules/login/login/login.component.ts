@@ -27,7 +27,7 @@ export class LoginComponent {
   }
 
   loginForm = new FormGroup({
-    email: new FormControl(null, [Validators.email, Validators.required]),
+    email: new FormControl(null, [Validators.email, Validators.required,]),
     password: new FormControl(null, [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/), Validators.required])
   });
 
@@ -42,7 +42,7 @@ export class LoginComponent {
 
   sendGoogleAuth():void{
     this.authService.SingInWithGoogle().then(fireData => {
-      this.firestoreService.getUser(fireData.user.uid).then(data => {
+      this.firestoreService.getCustomer(fireData.user.uid).then(data => {
         if(!data){
           let customer:Customer ={
             id: fireData.user.uid,

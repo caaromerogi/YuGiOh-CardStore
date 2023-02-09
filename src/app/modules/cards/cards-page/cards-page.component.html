@@ -1,28 +1,42 @@
+<app-cards-window
+(emitPurchaseProcess)="catchPurchaseProcess($event)"
+(emitFilterSearch)="catchFilterSearch($event)"
+[cards]="cards"></app-cards-window>
 
+
+
+<!--
 <div class="h1 text-center p-5"style="width: 100%;" >
-  <h1 class="display-6 fw-bold"  style="color:rgb(233, 233, 255);">CARDS</h1>
+  <h1 class="h1 "  style="color:rgb(233, 233, 255);">Cards</h1>
 </div>
-<div class="d-flex flex-column align-items-center justify-content-center " style="width: 100%; height: 90%;">
+<div class="d-flex flex-column align-items-center justify-content-start " style=" width: 100%; height: 100%;">
     <div
-    style="width: 75vw; height: 100%;
+    style="min-height: 600px; width: 70vw; height: 100%;
     background-color: rgb(0, 0, 14);
     padding: 0;"
-    class="d-flex text-center flex-wrap justify-content-center mt-5 ">
+    class="d-flex  flex-wrap justify-content-center mt-5 " >
       <div class="p-1" *ngFor="let item of cards | slice: (page-1) * pageSize : page * pageSize">
         <app-card-tooltip
+        style="width: 100px; height:145.83px;"
+        (click) = "swalFireAcceptPurchase(item)"
         imgSrc = "{{item.card_images[0].image_url}}"
         cardTitle ="{{item.name}}"
         cardType ="{{ '['+item.type+']'}}"
         description ="{{item.desc}}"
         atk = "{{item.atk}}"
         dfs = "{{item.def}}"
+        inInventory=""
+        price="{{item.card_prices[0].ebay_price}}"
+        inInventory="{{item.inInventory}}"
+        [showPrice]="true"
+        [showAvailableUnits]="true"
         ></app-card-tooltip>
       </div>
     </div>
     <ngb-pagination
-    style="margin: 20px; color: white; background-color: black;"
+    style="margin-top: 100px; color: white; background-color: black;"
       [(page)]="page"
       [pageSize]="pageSize"
-      [collectionSize]="cards!.length"></ngb-pagination>
-
-  </div>
+      [collectionSize]="cards!.length"
+       (pageChange)="loadPage($event)"></ngb-pagination>
+  </div> -->

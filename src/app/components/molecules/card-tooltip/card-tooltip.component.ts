@@ -13,4 +13,8 @@ export class CardTooltipComponent {
   @Input() hasAttack?:boolean;
   @Input() atk?:string;
   @Input() dfs?:string;
+  @Input() inInventory?:string;
+  @Input() price?:string;
+  @Input() showPrice?:boolean
+  @Input() showAvailableUnits?:boolean
 }
