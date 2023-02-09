@@ -20,7 +20,7 @@ export class InputTextComponent implements OnInit {
   @Input() inputMin?:number;
   @Input() inputMax?:number;
   formControlName!:string|null;
-  @Input() stringToEmit?:string;
+  @Input() stringToEmit:string = '';
 
   getControlName(): void{
     let formGroup = this.inputFormControl["_parent"].controls;

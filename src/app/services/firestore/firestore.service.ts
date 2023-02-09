@@ -267,7 +267,7 @@ export class FirestoreService {
       },
       title:'You has reached max amount today!',
       html: `<p>Come in ${time} to fund that quantity</p>
-      <p style = 'font-size:14px' >You are able to fund ${remaining} USD</p>`,
+      <p style = 'font-size:14px' >You are able to fund ${remaining.toFixed(2)} USD</p>`,
       icon:'error',
       background: '#222222',
       showConfirmButton:false,
