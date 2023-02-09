@@ -6,6 +6,8 @@ import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { Customer } from 'src/app/models/Customer';
 import { getAuth } from 'firebase/auth';
 import { arrayRemove, arrayUnion, increment, updateDoc } from 'firebase/firestore';
+import { FundTimer } from 'src/app/models/FundTimer';
+import Swal from 'sweetalert2'
 
 @Injectable({
   providedIn: 'root'
@@ -76,21 +78,6 @@ export class FirestoreService {
     return this.customerData
   }
 
-  async addCardToUser(cardId:string, cardPrice:number){
-    let customer = doc(this.firestore, 'Customers', String(getAuth().currentUser?.uid))
-
-    await updateDoc(customer, {
-      deck: arrayUnion(
-        await this.getCardById(cardId).then(async card=>{
-          console.log("actualizando balance")
-          await this.updateCustomerBalance(cardPrice);
-          await this.updateCardMarketInventory(cardId);
-          return card
-        })
-      )
-    })
-
-  }
 
   async addCardToCustomer(cardId:string, cardPrice:number){
     let customerRef = doc(this.firestore, 'Customers', String(getAuth().currentUser?.uid));
@@ -192,5 +179,85 @@ export class FirestoreService {
     .doc(getAuth().currentUser?.uid)
     .update({
       balance: increment(amount)})
+  }
+
+  async CreateFundTimer(amount:number):Promise<void>{
+    await this.angularFirestore.collection<FundTimer>('Timer')
+    .doc("1")
+    .ref
+    .get()
+    .then(
+      async (document) =>{
+        if(document.exists){
+          if(this.timeDifferenceInHours(document.data()?.date!)>=24){
+            await this.fundCustomerAccount(amount).then(async data => await this.setTimer(amount))
+            this.swalSuccessFundingTransaction();
+          }else{
+            if(Number(document.data()?.accumulatedAmount!)+amount>200){
+              let timeRemaining =
+              String(Math.floor(24 - this.timeDifferenceInHours(document.data()?.date!)))
+               + " Hour " +
+              String(Math.floor(60 - this.timeDifferenceInHours(document.data()?.date!)*60))
+               + " Min"
+              this.swalErrorTimerFundingTransaction(timeRemaining);
+            }else{
+              await this.fundCustomerAccount(amount).then(async data => await this.incrementAmount(amount))
+              this.swalSuccessFundingTransaction();
+            }
+          }
+        }else{
+          await this.fundCustomerAccount(amount).then(async data => await this.setTimer(amount));
+          this.swalSuccessFundingTransaction();
+        }
+      }
+    )
+  }
+
+  async setTimer(amount:number):Promise<void>{
+    let timerRef = collection(this.firestore, 'Timer');
+    let timerDoc = doc(timerRef, "1");
+    await setDoc(timerDoc, {
+      date: Date(),
+      accumulatedAmount:amount
+    })
+  }
+
+  async incrementAmount(amount:number):Promise<void>{
+    await this.angularFirestore.collection<FundTimer>('Timer')
+    .doc("1")
+    .update({
+      accumulatedAmount: increment(amount)})
+  }
+
+  timeDifferenceInHours(timestamp:Date):number{
+    let timeString = String(timestamp)
+    let time = new Date(timeString)
+    let dateNow = new Date()
+    return Math.abs(dateNow.getTime() - time.getTime())/(36e5)
+  }
+
+  swalSuccessFundingTransaction():void{
+    Swal.fire({
+      customClass:{
+      },
+      title:'successful transaction!',
+      icon:'success',
+      background: '#222222',
+      showConfirmButton:false,
+      timer:2000
+    })
+  }
+
+  swalErrorTimerFundingTransaction(time:string):void{
+    Swal.fire({
+      customClass:{
+      },
+      title:'You has reached max amount today!',
+      html: `<p>Come in ${time}</p>`,
+      icon:'error',
+      background: '#222222',
+      showConfirmButton:false,
+      timer:2000
+    })
   }
 }

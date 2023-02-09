@@ -3,7 +3,9 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 @import '@sweetalert2/themes/dark/dark.scss';
-
+.color-gray{
+  color: rgb(179, 179, 179);
+}
 .my-custom-class .tooltip-inner {
   border-style: solid;
   border-width: 1px;

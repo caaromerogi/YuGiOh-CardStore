@@ -37,8 +37,7 @@ export class DeckViewComponent implements OnInit{
     .subscribe(
       cardsFilter => {
         this.cards = cardsFilter
-        console.log(this.cards)}
-
+      }
     )
   }
 }

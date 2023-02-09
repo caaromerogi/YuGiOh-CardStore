@@ -56,51 +56,44 @@ export class CardsPageComponent implements OnInit{
     )
   }
 
-
   swalFireAcceptPurchase(card:Card):void{
     const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success ',
-        cancelButton: 'btn btn-danger'
-      },
       buttonsStyling: true
     })
 
     swalWithBootstrapButtons.fire({
-      customClass:{
-        title : '',
-        confirmButton: 'btn btn-success m-1 confirm',
-        cancelButton: 'btn btn-danger m-1 cancel'
-      },
       title: card.name,
-      html: "<p >Do tou want to buy this card?</p>",
+      html: "<p>Do tou want to buy this card?</p>",
       showCancelButton: true,
       confirmButtonText: 'Yes',
       cancelButtonText: 'No',
       reverseButtons: true,
       imageUrl: card.card_images[0].image_url,
       imageWidth: 300,
-      background:'#222222'
+      allowOutsideClick:false,
+      background:'#222222',
+
     }).then(async (result) => {
       if (result.isConfirmed &&
         getAuth().currentUser?.uid &&
-        this.currentCustomer?.balance! > card.card_prices[0].ebay_price) {
+        this.currentCustomer?.balance! > card.card_prices[0].ebay_price)
+        {
         await this.buyCard(card.id, card.card_prices[0].ebay_price)
         .then(data =>{
           swalWithBootstrapButtons.fire({
             title: 'Successful purchase!',
             text:'You can see the card in deck',
             icon:'success',
-            background:'#222222'
+            background:'#222222',
+            timer:1500,
+            showConfirmButton:false
           }
           )
         })
         .catch(err => {
           console.log(err)
         })
-
       }
-
       else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
@@ -109,13 +102,14 @@ export class CardsPageComponent implements OnInit{
           title: 'Cancelled',
           text: "You didn't purchase the card",
           icon: 'error',
-          background: '#222222'
-        }
-        )
+          background: '#222222',
+          timer:1500,
+          showConfirmButton:false
+        })
       }
       else if (!getAuth().currentUser?.uid){
         this.router.navigateByUrl('/login')
-      }else{
+      }else if(this.currentCustomer?.balance! < card.card_prices[0].ebay_price){
         this.swalNotEnoughMoney();
       }
     })

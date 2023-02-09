@@ -16,19 +16,22 @@ export class FundComponent {
   })
 
   async catchFundClick(event:number):Promise<void>{
-    await this.firestoreService.fundCustomerAccount(event).then(
-      data=>{
-        Swal.fire({
-          customClass:{
-          },
-          title:'successful transaction!',
-          icon:'success',
-          background: '#222222',
-          showConfirmButton:false,
-          timer:2000
-        })
-        this.router.navigateByUrl('/cards')
-      }
-    );
+    await this.firestoreService.CreateFundTimer(event)
+    // await this.firestoreService.fundCustomerAccount(event).then(
+    //   data=>{
+    //     Swal.fire({
+    //       customClass:{
+    //       },
+    //       title:'successful transaction!',
+    //       icon:'success',
+    //       background: '#222222',
+    //       showConfirmButton:false,
+    //       timer:2000
+    //     })
+    //     this.router.navigateByUrl('/cards')
+    //   }
+    // );
   }
+
+
 }
