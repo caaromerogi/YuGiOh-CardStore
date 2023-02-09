@@ -11,10 +11,12 @@ export class FundingBoxComponent {
   min:number = 1;
   max:number = 200;
   amount:number = 0
+  inputText?:string;
   @Output() fundClick:EventEmitter<number> = new EventEmitter<number>();
 
   fundAccount():void{
     this.fundClick.emit(this.amount);
+    this.inputText = '0'
   }
 
   catchInput(event:string){

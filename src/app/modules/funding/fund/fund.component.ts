@@ -12,25 +12,11 @@ import Swal from 'sweetalert2'
 export class FundComponent {
   constructor(private firestoreService: FirestoreService, private router:Router){}
   fundForm:FormGroup = new FormGroup({
-    amount: new FormControl(null, [Validators.max(200), Validators.min(1)])
+    amount: new FormControl(null, [Validators.max(200), Validators.min(1), Validators.required])
   })
 
   async catchFundClick(event:number):Promise<void>{
     await this.firestoreService.CreateFundTimer(event)
-    // await this.firestoreService.fundCustomerAccount(event).then(
-    //   data=>{
-    //     Swal.fire({
-    //       customClass:{
-    //       },
-    //       title:'successful transaction!',
-    //       icon:'success',
-    //       background: '#222222',
-    //       showConfirmButton:false,
-    //       timer:2000
-    //     })
-    //     this.router.navigateByUrl('/cards')
-    //   }
-    // );
   }
 
 

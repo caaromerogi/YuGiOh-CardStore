@@ -24,7 +24,6 @@ export class CardsWindowComponent {
       const term = text.toLocaleLowerCase();
       return card.name.toLocaleLowerCase().includes(term)
     })
-    console.log(this.cards)
   }
 
   catchInput(event:string){

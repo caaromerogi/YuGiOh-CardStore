@@ -183,31 +183,44 @@ export class FirestoreService {
 
   async CreateFundTimer(amount:number):Promise<void>{
     await this.angularFirestore.collection<FundTimer>('Timer')
-    .doc("1")
+    .doc(getAuth().currentUser?.uid)
     .ref
     .get()
     .then(
       async (document) =>{
         if(document.exists){
+          //See if time difference is bigger than 25
           if(this.timeDifferenceInHours(document.data()?.date!)>=24){
-            await this.fundCustomerAccount(amount).then(async data => await this.setTimer(amount))
-            this.swalSuccessFundingTransaction();
+            //If it is, set a new timer and fund account
+            await this.fundCustomerAccount(amount)
+            .then(async data => await this.setTimer(amount))
+            .then(data => this.swalSuccessFundingTransaction())
+            //If not
           }else{
-            if(Number(document.data()?.accumulatedAmount!)+amount>200){
+            //Check if the accumulated amount is greater than 200
+            let accumulated = Number(document.data()?.accumulatedAmount!)+amount
+            let remainingCount = 200 - Number(document.data()?.accumulatedAmount!)
+            if(accumulated>200){
+              //If it is, show an error to user
               let timeRemaining =
               String(Math.floor(24 - this.timeDifferenceInHours(document.data()?.date!)))
                + " Hour " +
               String(Math.floor(60 - this.timeDifferenceInHours(document.data()?.date!)*60))
                + " Min"
-              this.swalErrorTimerFundingTransaction(timeRemaining);
-            }else{
+              this.swalErrorTimerFundingTransaction(timeRemaining, remainingCount);
+            }
+            //If not, fund the account and show success
+            else{
               await this.fundCustomerAccount(amount).then(async data => await this.incrementAmount(amount))
               this.swalSuccessFundingTransaction();
             }
           }
-        }else{
-          await this.fundCustomerAccount(amount).then(async data => await this.setTimer(amount));
-          this.swalSuccessFundingTransaction();
+        }
+        //If the document doesn't exist create a new one
+        else{
+          await this.fundCustomerAccount(amount)
+          .then(async data => await this.setTimer(amount))
+          .then(data =>  this.swalSuccessFundingTransaction())
         }
       }
     )
@@ -215,7 +228,7 @@ export class FirestoreService {
 
   async setTimer(amount:number):Promise<void>{
     let timerRef = collection(this.firestore, 'Timer');
-    let timerDoc = doc(timerRef, "1");
+    let timerDoc = doc(timerRef, getAuth().currentUser?.uid);
     await setDoc(timerDoc, {
       date: Date(),
       accumulatedAmount:amount
@@ -224,7 +237,7 @@ export class FirestoreService {
 
   async incrementAmount(amount:number):Promise<void>{
     await this.angularFirestore.collection<FundTimer>('Timer')
-    .doc("1")
+    .doc(getAuth().currentUser?.uid)
     .update({
       accumulatedAmount: increment(amount)})
   }
@@ -248,16 +261,17 @@ export class FirestoreService {
     })
   }
 
-  swalErrorTimerFundingTransaction(time:string):void{
+  swalErrorTimerFundingTransaction(time:string, remaining:number):void{
     Swal.fire({
       customClass:{
       },
       title:'You has reached max amount today!',
-      html: `<p>Come in ${time}</p>`,
+      html: `<p>Come in ${time} to fund that quantity</p>
+      <p style = 'font-size:14px' >You are able to fund ${remaining} USD</p>`,
       icon:'error',
       background: '#222222',
       showConfirmButton:false,
-      timer:2000
+      timer:3000
     })
   }
 }

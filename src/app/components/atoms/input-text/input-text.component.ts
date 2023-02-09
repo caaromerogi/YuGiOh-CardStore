@@ -19,9 +19,8 @@ export class InputTextComponent implements OnInit {
   @Input() isFieldInvalid?:boolean;
   @Input() inputMin?:number;
   @Input() inputMax?:number;
-
   formControlName!:string|null;
-  stringToEmit:string = '';
+  @Input() stringToEmit?:string;
 
   getControlName(): void{
     let formGroup = this.inputFormControl["_parent"].controls;
