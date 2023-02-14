@@ -8,7 +8,7 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 })
 export class LoginFormComponent {
   @Input() formGroupInput!:FormGroup;
-  @Input() inputFormControlEmail!:AbstractControl
+  @Input() inputFormControlEmail!:AbstractControl;
   @Input() inputFormControlPassword!:AbstractControl;
 
   @Output() passwordEmitter:EventEmitter<string> = new EventEmitter();
